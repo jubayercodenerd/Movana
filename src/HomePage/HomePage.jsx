@@ -22,7 +22,7 @@ const HomePage = () => {
         },[])
     return (
         <main className={"relative flex flex-col items-center w-full min-h-screen overflow-x-hidden bg-black border-2 px-[10px]"}>
-            <img className={"absolute -top-[35%] min-w-[1000px] object-center xl:-top-[35%] lg:-top-[10%] max-md:-top-[5%]"} src="/project-images/certian.jpg" alt=""/>
+            <img className={"absolute -top-[45%] min-w-[1000px] z-0 lg:-top-[10%] max-xl:-top-[2%]"} src="/project-images/certian.jpg" alt=""/>
             <div className={"flex flex-col justify-start items-center z-10 px-[10px] max-w-[1200px] max-md:max-w-[full]"}>
                 <img className={"max-w-[400px]"} src="/project-images/hero-img.png " alt=""/>
                 <div className={"max-w-[900px]"}>
