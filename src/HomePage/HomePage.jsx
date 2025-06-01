@@ -14,6 +14,7 @@ const options = {
 
 const HomePage = () => {
     const [movies, setMovies] = React.useState([]);
+    const [search, setSearch] = React.useState("");
     useEffect(() => {
         fetch(baseUrl, options).then(response => response.json()).then(data => {
             setMovies(data.results);
@@ -22,21 +23,21 @@ const HomePage = () => {
         },[])
     return (
         <main className={"relative flex flex-col items-center w-full min-h-screen overflow-x-hidden bg-black border-2 px-[10px]"}>
-            <img className={"absolute -top-[45%] min-w-[1000px] z-0 lg:-top-[10%] max-xl:-top-[2%]"} src="/project-images/certian.jpg" alt=""/>
+            <img className={"absolute -top-[45%] min-w-[1000px] z-0 lg:-top-[15%] max-xl:-top-[2%]"} src="/project-images/certian.jpg" alt=""/>
             <div className={"flex flex-col justify-start items-center z-10 px-[10px] max-w-[1200px] max-md:max-w-[full]"}>
                 <img className={"max-w-[400px]"} src="/project-images/hero-img.png " alt=""/>
                 <div className={"max-w-[900px]"}>
-                    <h1 className={"text-center text-5xl text-white font-bold max-md:text-4xl"}>
+                    <h1 className={"text-center text-5xl text-white font-bold max-md:text-3xl"}>
                     Enjoy <span className={"bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"}>Movies</span> You Love!<br/>For Free, Forever!
                     </h1>
                 </div>
-                <img className={"max-h-[80px] my-[25px] max-md:max-h-[50px]"} src="/public/project-images/MovanaLogo.png" alt=""/>
+                <img className={"max-h-[80px] my-[25px] max-md:max-h-[40px]"} src="/public/project-images/MovanaLogo.png" alt=""/>
             </div>
-            <div className={"z-10 max-w-[800px] w-full h-[60px] max-md:h-[45px] flex justify-start items-center rounded-xl bg-[rgba(230,0,0,.2)] "}>
-                <img className={"ml-[10px] h-[60%] filter invert"} src="/public/project-images/search.svg" alt="search-icon"/>
-                <input className={"h-full w-full px-[10px] text-2xl text-gray-200 focus:outline-none max-md:text-xl"} placeholder={"Search movies"} type="text"/>
+            <div className={"z-10 max-w-[800px] w-full h-[50px] max-md:h-[45px] flex justify-start items-center rounded-xl bg-[rgba(230,0,0,.2)] "}>
+                <img className={"ml-[10px] h-[50%] filter invert"} src="/public/project-images/search.svg" alt="search-icon"/>
+                <input className={"h-full w-full px-[10px] text-xl text-gray-200 focus:outline-none max-md:text-xl"} placeholder={"Search movies"} type="text"/>
             </div>
-            <div className={"w-full flex justify-center max-md:justify-center items-center flex-wrap gap-[20px] max-w-[1600px] my-[40px] max-md:my-[20px]"}>
+            <div className={"w-full flex justify-center max-md:justify-center items-center flex-wrap gap-[20px] max-w-[1500px] my-[40px] max-md:my-[20px]"}>
                 {
                     movies.map((movie) => {
                         let title = movie.title.length > 22 ? movie.title.slice(0,22) + "..." : movie.title;

@@ -1,25 +1,25 @@
 
 const MovieCard = ({poster,rating,title,date,lang,}) => {
     return (
-        <div className={"h-[540px] w-[300px] p-[15px] rounded-xl bg-[rgba(230,0,0,.2)]"}>
-            <img className={"max-h-[400px] rounded-lg"} src={`https://image.tmdb.org/t/p/w500/${poster}`} alt="poster"/>
-            <div className={"flex flex-wrap justify-start items-center my-[10px] gap-[5px]"}>
-                <img className={"h-[80%]"} src="/public/project-images/star.png" alt="ratin-star"/>
-                <p className={"text-lg font-semibold text-gray-300"}>{rating}</p>
-                <p className={"text-lg font-semibold text-gray-300"}>•</p>
-                <p className={"text-lg font-semibold text-gray-300"}>{title}</p>
+        <div className={"h-[318px] w-[180px] p-[8px] rounded-xl bg-[rgba(230,0,0,.2)] max-md:h-[320px] max-md:w-[180px] max-md:min-w-[180px]"}>
+            <img className={"max-h-[260px] rounded-lg max-md:max-h-[300px]"} src={`https://image.tmdb.org/t/p/w500/${poster}`} alt="poster"/>
+            <div className={"flex flex-wrap justify-start items-center my-[3px] gap-[2px]"}>
+                <img className={"h-[12px]"} src="/public/project-images/star.png" alt="ratin-star"/>
+                <p className={"text-[11px] max-md:text-[11px] font-semibold text-gray-300"}>{rating}</p>
+                <p className={"text-[11px] max-md:text-[11px] font-semibold text-gray-300"}>•</p>
+                <p className={"text-[11px] max-md:text-[11px] font-semibold text-gray-300"}>{title}</p>
             </div>
-            <div className={"flex flex-wrap justify-start items-center my-[10px] gap-[5px]"}>
-                <p className={"text-lg font-semibold text-gray-300"}>{date}</p>
-                <p className={"text-lg font-semibold text-gray-300"}>•</p>
-                <p className={"text-lg font-semibold text-gray-300"}>{lang}</p>
+            <div className={"flex flex-wrap justify-start items-center my-[3px] gap-[2px]"}>
+                <p className={"text-[11px] max-md:text-[11px] font-semibold text-gray-300"}>{date}</p>
+                <p className={"text-[11px] max-md:text-[11px] font-semibold text-gray-300"}>•</p>
+                <p className={"text-[11px] max-md:text-[11px] font-semibold text-gray-300"}>{lang}</p>
             </div>
-            <div className={"flex flex-wrap justify-start items-center mt-[10px] gap-[5px]"}>
-                <p className={"text-sm font-semibold text-gray-300"}>Supernatural</p>
-                <p className={"text-sm font-semibold text-gray-300"}>•</p>
-                <p className={"text-sm font-semibold text-gray-300"}>horror</p>
-                <p className={"text-sm font-semibold text-gray-300"}>•</p>
-                <p className={"text-sm font-semibold text-gray-300"}>Thriller</p>
+            <div className={"flex flex-wrap justify-start items-center mt-[3px] gap-[2px]"}>
+                <p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>Supernatural</p>
+                <p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>•</p>
+                <p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>horror</p>
+                <p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>•</p>
+                <p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>Thriller</p>
             </div>
         </div>
     )
