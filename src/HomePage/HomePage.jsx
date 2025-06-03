@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {useDebounce} from "react-use";
 import Navbar from "../Navbar.jsx";
 import MovieCard from "./MovieCard.jsx";
 const baseUrl = 'https://api.themoviedb.org/3';
@@ -28,9 +29,13 @@ const HomePage = () => {
             : `${baseUrl}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`);
         }, [search,page])
 
-    useEffect(() => {
+    useDebounce(() => {
         fetchMovies(endPoint);
-    },[endPoint])
+    },500,[endPoint]);
+    // useEffect(() => {
+    //
+    //     fetchMovies(endPoint);
+    // },[endPoint])
 
     async function fetchMovies(url) {
 
