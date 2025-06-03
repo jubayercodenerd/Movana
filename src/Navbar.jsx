@@ -1,15 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const Navbar = () => {
+const Navbar = ({user,profileDir}) => {
+    const [signInHovered, setSignInHovered] = useState(false);
     return (
-        <nav className={`h-[75px] w-full bg-blue-950 flex items-center justify-between z-20 max-md:h-[50px] p-[10px]`}>
-            <img className={"h-[70%] "} src="/public/project-images/menu.svg" alt=""/>
-            <div className={"h-full max-w-[800px] w-full mx-[20px] flex items-center justify-start border-2 border-white rounded-xl" +
-                ""}>
-                <img className={"h-[70%] mx-[10px] "} src="/public/project-images/search.svg" alt="search-icon"/>
-                <input className={"border-none bg-transparent h-full w-full focus:outline-none text-2xl text-white"} type="text" placeholder="Search Movies"/>
-            </div>
-            <img className={"h-[70%]"} src="/public/project-images/user.svg" alt="User-icon"/>
+        <nav className={`absolute z-50 h-[60px] w-full flex items-center max-md:h-[50px]`}>
+            {/*<img className={"h-full "} src="/public/project-images/menu.svg" alt=""/>*/}
+            {
+                user?<div   className={"absolute right-[70px] h-[80%] aspect-square rounded-full border-2 border-white"}><img src={profileDir} alt="profile"/></div>
+                    :<button onMouseOver={() => setSignInHovered(true)}
+                             onMouseLeave={() => setSignInHovered(false)}
+                            className={`h-[70%] w-[120px] ${signInHovered?'bg-[rgba(230,0,0,.5)]':'bg-[rgba(230,20,20,.6)]'} cursor-pointer absolute right-[70px] rounded-full`}>
+                        <p className={"inline bg-clip-text text-xl text-transparent font-bold bg-gradient-to-b from-blue-100 to-red-200"}>Sign In</p>
+                    </button>
+            }
         </nav>
     )
 }

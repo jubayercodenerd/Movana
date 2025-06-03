@@ -60,7 +60,8 @@ const HomePage = () => {
         <main className={"relative flex flex-col items-center w-full min-h-screen overflow-x-hidden bg-black border-2 px-[10px]"}>
             <img className={"absolute -top-[45%] min-w-[1000px] z-0 lg:-top-[15%] max-xl:-top-[2%]"} src="/project-images/certian.jpg" alt=""/>
             <div className={"flex flex-col justify-start items-center z-10 px-[10px] max-w-[1200px] max-md:max-w-[full]"}>
-                <img className={"max-w-[400px] max-md:max-w-[350px]"} src="/project-images/hero-img.png " alt=""/>
+                <Navbar user={false} profileDir={null} />
+                <img className={"max-w-[400px] mt-[30px] max-md:max-w-[350px]"} src="/project-images/hero-img.png " alt=""/>
                 <div className={"max-w-[900px]"}>
                     <h1 className={"text-center text-5xl text-white font-bold max-md:text-3xl"}>
                     Enjoy <span className={"bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"}>Movies</span> You Love!<br/>For Free, Forever!
@@ -74,7 +75,7 @@ const HomePage = () => {
                     onChange={e =>{setSearch(e.target.value); setPage(1);}}
                 />
             </div>
-            <section className={"z-50 flex justify-center max-md:justify-center items-center flex-wrap gap-[20px] max-w-[1100px] my-[40px] max-md:my-[20px]"}>
+            <section className={"z-20 flex justify-center max-md:justify-center items-center flex-wrap gap-[20px] max-w-[1100px] my-[40px] max-md:my-[20px]"}>
                 {   movies && movies.length > 0?(
                         movies.map((movie) => {
                             let title = movie.title.length > 22 ? movie.title.slice(0,22) + "..." : movie.title;
