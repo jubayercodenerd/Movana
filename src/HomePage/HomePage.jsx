@@ -89,7 +89,7 @@ const HomePage = () => {
             <div className={"h-[35px] flex justify-center items-center flex-wrap mb-[30px] gap-[10px]"}>
                 {
                     page > 1? <>
-                            <button onClick={() =>{  setPage(prevState => prevState - 1); console.log(page); scrollTo({top: 400, behavior: "smooth"})} } className={"relative flex justify-center items-center min-w-[100px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
+                            <button onClick={() =>{  setPage(prevState => prevState - 1); console.log(page);} } className={"relative flex justify-center items-center min-w-[100px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
                                 <img className={"absolute left-0 h-full filter invert"} src="/public/project-images/angle-left.svg" alt=""/>
                                 <p className={"text-center"}>Prev</p>
                             </button>
