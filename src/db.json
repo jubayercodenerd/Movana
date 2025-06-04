@@ -1,0 +1,25 @@
+{
+  "Users":[
+    {
+      "id": "001",
+      "firstName": "Ahmed",
+      "lastName": "Jubayer",
+      "profilePicture": "/project-images/profile-pictures/001.jpg",
+      "email": "foisal.ahmed31.12@gmail.com",
+      "password": "azad0046",
+      "history": [
+        {"movieId": "332423"},{"movieId": "32243"}
+      ]
+    },    {
+      "id": "002",
+      "firstName": "Ahmed",
+      "lastName": "Shuvo",
+      "profilePicture": "/project-images/profile-pictures/002.jpg",
+      "email": "foisal.ahmed31.12@gmail.com",
+      "password": "azad0046",
+      "history": [
+        {"movieId": "332423"},{"movieId": "32243"}
+      ]
+    }
+  ]
+}
