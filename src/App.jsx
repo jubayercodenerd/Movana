@@ -6,11 +6,12 @@ import {useState} from "react";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [profileDir, setProfileDir] = useState(null);
   return (
     <>
         <Routes>
             <Route path="/" element={<HomePage setIsLoggedIn={setIsLoggedIn} isLoggedIn = {isLoggedIn}/>}/>
-            <Route path="/login" element={<LoginPage setIsLoggedIn = {setIsLoggedIn}/>}/>
+            <Route path="/login" element={<LoginPage setProfielDir={setProfileDir} setIsLoggedIn = {setIsLoggedIn}/>}/>
         </Routes>
     </>
   )

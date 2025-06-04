@@ -1,20 +1,34 @@
 import React from 'react'
 import {Navigate, useNavigate} from "react-router-dom";
 import {useEvent} from "react-use";
+const endPoint = "http://localhost:3000/Users"
 
-const LoginPage = ({setIsLoggedIn}) => {
+const LoginPage = ({setIsLoggedIn,setProfielDir}) => {
     const [isNewUser, setIsNewUser] = React.useState(false);
     const [firstName, setFirstName] = React.useState("");
     const [lastName, setLastName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [wrongCreds,setWrongCreds] = React.useState(false);
+    const [emailExists, setEmailExists] = React.useState(false);
     const navigate = useNavigate();
 
-    function handleLogin(event) {
+    async function handleLogin(event) {
         event.preventDefault();
-        if (password !== "") {
-            setIsLoggedIn(true);
-            navigate("/");
+        if (!isNewUser) {
+            const response = await fetch(`${endPoint}?email=${email}&password=${password}`);
+            const data = await response.json();
+            console.log(data);
+            if (data.length === 1) {
+                setIsLoggedIn(true);
+                setWrongCreds(false);
+                localStorage.setItem("user", JSON.stringify(data));
+                navigate("/");
+            } else {
+                setWrongCreds(true);
+                setEmail("");
+                setPassword("");
+            }
         }
     }
     return (
@@ -37,8 +51,14 @@ const LoginPage = ({setIsLoggedIn}) => {
                     {!isNewUser ? <div className={"flex gap-[5px] text-lg"}><p>Don't Have Account?</p><p className={"text-blue-900 font-semibold"} onClick={()=> setIsNewUser(true)}>Register</p></div>
                         :<div className={"flex gap-[5px] text-lg"}><p>Have Account?</p><p onClick={()=> setIsNewUser(false)} className={"text-blue-900 font-semibold"}>Login</p></div>}
                 </div>
+                {
+                    wrongCreds ? <><p className={"text-lg text-red-700"}>Email or password doesnt match!</p></>:<></>
+                }
+                {
+                    emailExists? <><p className={"text-lg text-red-700"}>Email already registered!</p></>:<></>
+                }
             </form>
         </div>
     )
 }
-export default LoginPage
+export default LoginPage;
