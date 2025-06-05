@@ -1,0 +1,72 @@
+{
+  "Users": [
+    {
+      "id": "232",
+      "firstName": "Ahmed",
+      "lastName": "Jubayer",
+      "profilePicture": "/profile-pictures/001.jpg",
+      "email": "foisal.ahmed31.12@gmail.com",
+      "password": "azad0046",
+      "history": [
+        {
+          "movieId": "332423"
+        },
+        {
+          "movieId": "32243"
+        }
+      ]
+    },
+    {
+      "id": "2312",
+      "firstName": "Ahmed",
+      "lastName": "Shuvo",
+      "profilePicture": "/profile-pictures/002.jpg",
+      "email": "ff@ff.ff",
+      "password": "azad0046",
+      "history": [
+        {
+          "movieId": "332423"
+        },
+        {
+          "movieId": "32243"
+        }
+      ]
+    },
+    {
+      "id": "d86a",
+      "firstName": "hello",
+      "lastName": "world",
+      "profilePicture": "/profile-pictures/default.jpg",
+      "email": "asad@gmail.com",
+      "password": "1234",
+      "history": []
+    },
+    {
+      "id": "c651",
+      "firstName": "nirmala",
+      "lastName": "",
+      "profilePicture": "/profile-pictures/default.jpg",
+      "email": "ab@ab",
+      "password": "1234",
+      "history": []
+    },
+    {
+      "id": "8059",
+      "firstName": "sa",
+      "lastName": "as",
+      "profilePicture": "/profile-pictures/default.jpg",
+      "email": "ds@d",
+      "password": "sd",
+      "history": []
+    },
+    {
+      "id": "9c33",
+      "firstName": "dsfsd",
+      "lastName": "sd",
+      "profilePicture": "/profile-pictures/default.jpg",
+      "email": "11@ds.sd",
+      "password": "1234",
+      "history": []
+    }
+  ]
+}

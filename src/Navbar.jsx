@@ -24,7 +24,7 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
             {
                 isLoggedIn ? (
                     <div className="h-[70%] aspect-square rounded-full border-2 border-white overflow-hidden">
-                        <img src={profileDir?profileDir:'/project-images/blank-profile-picture.jpg'} alt=""/>
+                        <img src={profileDir?profileDir:'/public/profile-pictures/default.jpg'} alt=""/>
                     </div>
                 ) : (
                     <Link to="/login">
@@ -53,7 +53,7 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
                         <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 "}>Genres</button>
                         <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200"}>years</button>
                         {
-                            !isLoggedIn ? <></>:<button onClick={ () => { setIsLoggedIn(false); setIsMenuModalVisible(false)}} className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200"}>Log Out</button>
+                            !isLoggedIn ? <></>:<button onClick={ () => { setIsLoggedIn(false); localStorage.removeItem("user"); setIsMenuModalVisible(false)}} className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200"}>Log Out</button>
                         }
                     </div>
                 </>:<></>
