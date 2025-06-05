@@ -11,6 +11,7 @@ const LoginPage = ({setIsLoggedIn,setProfielDir}) => {
     const [password, setPassword] = React.useState("");
     const [wrongCreds,setWrongCreds] = React.useState(false);
     const [emailExists, setEmailExists] = React.useState(false);
+    const [backToHomeHovered, setBackToHomeHovered] = React.useState(false);
     const navigate = useNavigate();
 
     async function handleLogin(event) {
@@ -81,11 +82,12 @@ const LoginPage = ({setIsLoggedIn,setProfielDir}) => {
                        className={"w-full p-[10px] h-[40px] border-b-1 focus:outline-none max-md:text-lg"} required={true}/>
                 <input type="password" value={password} placeholder={"Password"} onChange={event => setPassword(event.target.value)}
                        className={"w-full p-[10px] h-[40px] border-b-1 focus:outline-none max-md:text-lg"} required={true}/>
-                <button type="submit" className={"text-lg h-[40px] w-full bg-gradient-to-r from-purple-400 to-pink-400 mt-[10px] rounded-lg shadow-xl"}>{isNewUser?"Register":"Log In"}</button>
+                <button type="submit" className={"text-lg h-[40px] w-full bg-gradient-to-r from-purple-400 to-pink-400 my-[10px] rounded-lg shadow-xl"}>{isNewUser?"Register":"Log In"}</button>
                 <div>
-                    {!isNewUser ? <div className={"flex gap-[5px] text-lg"}><p>Don't Have Account?</p><p className={"text-blue-900 font-semibold"} onClick={()=> setIsNewUser(true)}>Register</p></div>
-                        :<div className={"flex gap-[5px] text-lg"}><p>Have Account?</p><p onClick={()=> setIsNewUser(false)} className={"text-blue-900 font-semibold"}>Login</p></div>}
+                    {!isNewUser ? <div className={"flex gap-[5px] text-lg"}><p>Don't Have Account?</p><p className={"text-blue-900 font-semibold  cursor-pointer"} onClick={()=>{setIsNewUser(true); setEmailExists(false);setWrongCreds(false)}}>Register</p></div>
+                        :<div className={"flex gap-[5px] text-lg"}><p>Have Account?</p><p onClick={()=>{setIsNewUser(false); setEmailExists(false);setWrongCreds(false)} } className={"text-blue-900 font-semibold cursor-pointer"}>Login</p></div>}
                 </div>
+                <button onClick={() => navigate('/')} onMouseOver={() => setBackToHomeHovered(true)} onMouseLeave={() => setBackToHomeHovered(false)} className={`backdrop-blur-2xl text-lg text-green-800 p-[5px] rounded-lg ${backToHomeHovered?'bg-[rgba(240,50,50,.1)]':''}`}>Go back to homepage</button>
                 {
                     wrongCreds ? <><p className={"text-lg text-red-700"}>Email or password doesnt match!</p></>:<></>
                 }

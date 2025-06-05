@@ -4,6 +4,7 @@ import Navbar from "../Navbar.jsx";
 import MovieCard from "./MovieCard.jsx";
 const baseUrl = 'https://api.themoviedb.org/3';
 const ApiKey = import.meta.env.VITE_TMDB_API_KEY;
+const genres = JSON.parse(localStorage.getItem('genres'));
 const options = {
     method: 'GET',
     headers: {
@@ -12,7 +13,6 @@ const options = {
     }
 };
 
-
 const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
     const [movies, setMovies] = React.useState([]);
     const [search, setSearch] = React.useState("");
@@ -20,12 +20,16 @@ const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
     const [page, setPage] = React.useState(1);
     const [noOfPages, setNoOfPages] = React.useState(1);
     const [endPoint, setEndPoint] = React.useState(`${baseUrl}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`);
+    const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
         setEndPoint(search !== ""
             ? `${baseUrl}/search/movie?query=${search}&include_adult=true&language=en-US&page=${page}`
             : `${baseUrl}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`);
         }, [search,page])
+    useEffect(() => {
+        console.log(genres);
+    })
 
     useDebounce(() => {
         fetchMovies(endPoint);
@@ -36,23 +40,31 @@ const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
     // },[endPoint])
 
     async function fetchMovies(url) {
-
+        setErrorMessage("");
+        setLoading(true);
         try{
             const response = await fetch(url, options);
             const data = await response.json();
             if(!response.ok) {
                 throw new Error("error fetching movies");
             }
+            if(data.results.length === 0) throw new Error("No movies found.");
+            console.log
+            setLoading(false);
             setMovies(data.results);
             setNoOfPages(data.total_pages);
             console.log("working");
             console.log(data);
             setErrorMessage("")
+
         }
         catch (error){
+            setMovies([]);
+            setNoOfPages(1);
             setErrorMessage(error.message);
             console.log(error.message);
         }
+
     }
     return (
         <main className={"relative flex flex-col items-center w-full min-h-screen overflow-x-hidden bg-black border-2 px-[10px]"}>
@@ -81,11 +93,16 @@ const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
                             let poster = movie.poster_path;
                             let release_date = movie.release_date.slice(0,4);
                             let key = movie.id;
-                            return <MovieCard key={key} poster={poster} rating={rating} title={title} date={release_date} lang={movie.original_language}/>
+                            let genresIds = movie.genre_ids;
+                            return <MovieCard key={key} poster={poster} rating={rating} title={title} date={release_date} lang={movie.original_language} genreIds={genresIds} genres={genres}/>
                         })
                     ):(
                         <div className="w-full text-center">
-                            <p className="text-white text-4xl">{errorMessage ===""?"No Movies found":errorMessage}</p>
+                            {
+                                loading?<p className="text-white text-4xl">{errorMessage ===""?"Loading":errorMessage}</p>
+                                    : errorMessage?<p className="text-white text-4xl">{errorMessage ===""?"No Movies found":errorMessage}</p>:<></>
+                            }
+
                         </div>
                     )
                 }
@@ -93,20 +110,26 @@ const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
             <div className={"h-[35px] flex justify-center items-center flex-wrap mb-[30px] gap-[10px]"}>
                 {
                     page > 1? <>
-                            <button onClick={() =>{  setPage(prevState => prevState - 1); console.log(page);} } className={"relative flex justify-center items-center min-w-[100px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
-                                <img className={"absolute left-0 h-full filter invert"} src="/public/project-images/angle-left.svg" alt=""/>
+                            <button onClick={() =>{setMovies([]); setPage(1); console.log(page);} } className={"relative flex justify-center items-center min-w-[50px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
+                                <img className={"h-full filter invert"} src="/public/project-images/angle-left.svg" alt=""/>
+                                <img className={"h-full filter invert"} src="/public/project-images/angle-left.svg" alt=""/>
+                            </button>
+                            <button onClick={() =>{setMovies([]); setPage(prevState => prevState - 1); console.log(page);} } className={"relative flex justify-center items-center min-w-[100px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
                                 <p className={"text-center"}>Prev</p>
                             </button>
                         </>
                     : <></>
                 }
-                <div className={"flex justify-center items-center min-w-[35px] p[5px] h-full bg-[rgba(230,0,0,.2)] rounded-sm"}><p className={"text-xl text-white"}>{page}</p></div>
+                <div className={"z-50 flex justify-center items-center min-w-[35px] p[5px] h-full bg-[rgba(230,0,0,.2)] rounded-sm"}><p className={"text-xl text-white"}>{page}</p></div>
                 {
 
                     page === noOfPages? <></>:<>
-                        <button onClick={() =>{ setPage(prevState => prevState + 1); console.log(page); scrollTo({top: 400, behavior: "smooth"})} } className={"relative flex justify-center items-center min-w-[100px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
-                            <img className={"absolute right-0 h-full filter invert"} src="/public/project-images/angle-right.svg" alt=""/>
+                        <button onClick={() =>{setMovies([]); setPage(prevState => prevState + 1); console.log(page); scrollTo({top: 400, behavior: "smooth"})}} className={"relative flex justify-center items-center min-w-[100px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
                             <p className={"text-center"}>Next</p>
+                        </button>
+                        <button onClick={() =>{setMovies([]); setPage(noOfPages); console.log(page);} } className={"relative flex justify-center items-center min-w-[50px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
+                            <img className={"h-full filter invert"} src="/public/project-images/angle-right.svg" alt=""/>
+                            <img className={"h-full filter invert"} src="/public/project-images/angle-right.svg" alt=""/>
                         </button>
                     </>
                 }
