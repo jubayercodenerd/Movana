@@ -13,7 +13,7 @@ const options = {
     }
 };
 
-const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
+const HomePage = ({setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir}) => {
     const [movies, setMovies] = React.useState([]);
     const [search, setSearch] = React.useState("");
     const [errorMessage, setErrorMessage] = React.useState("");
@@ -72,7 +72,7 @@ const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
         <main className={"relative flex flex-col items-center w-full min-h-screen overflow-x-hidden bg-black border-2 px-[10px]"}>
             <img className={"absolute -top-[45%] min-w-[1000px] z-0 lg:-top-[15%] max-xl:-top-[2%]"} src="/project-images/certian.jpg" alt=""/>
             <div className={"flex flex-col justify-start items-center z-10 px-[10px] max-w-[1200px] max-md:max-w-[full]"}>
-                <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} profileDir={profileDir} />
+                <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} profileDir={profileDir}/>
                 <img className={"max-w-[400px] mt-[30px] max-md:max-w-[350px]"} src="/project-images/hero-img.png " alt=""/>
                 <div className={"max-w-[900px]"}>
                     <h1 className={"text-center text-5xl text-white font-bold max-md:text-3xl"}>
@@ -94,9 +94,9 @@ const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
                             let rating = movie.vote_average.toFixed(1);
                             let poster = movie.poster_path;
                             let release_date = movie.release_date.slice(0,4);
-                            let key = movie.id;
+                            let movieId = movie.id;
                             let genresIds = movie.genre_ids;
-                            return <MovieCard key={key} poster={poster} rating={rating} title={title} date={release_date} lang={movie.original_language} genreIds={genresIds} genres={genres}/>
+                            return <MovieCard movieId={movieId} setCurrentMovie={setCurrentMovie} poster={poster} rating={rating} title={title} date={release_date} lang={movie.original_language} genreIds={genresIds} genres={genres}/>
                         })
                     ):(
                         <div className="w-full text-center">
@@ -104,7 +104,6 @@ const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
                                 loading?<p className="text-white text-4xl">{errorMessage ===""?"Loading":errorMessage}</p>
                                     : errorMessage?<p className="text-white text-4xl">{errorMessage ===""?"No Movies found":errorMessage}</p>:<></>
                             }
-
                         </div>
                     )
                 }

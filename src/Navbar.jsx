@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import reactRefresh from "eslint-plugin-react-refresh";
 
-const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
+const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir, setSearch}) => {
     const [signInHovered, setSignInHovered] = useState(false);
     const [isMenuModalVisible, setIsMenuModalVisible] = useState(false);
     const [isVisible, setIsVisible] = React.useState(true);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const handleScroll = () => {
@@ -50,6 +52,7 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
                 isMenuModalVisible?<>
                     <div    onMouseOver={()=>setIsMenuModalVisible(true)} onMouseLeave={()=>setIsMenuModalVisible(false)}
                         className={"absolute top-[60px] w-[120px] flex flex-col items-center justify-center gap-[2px] bg-black rounded-xl overflow-hidden"}>
+                        <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 cursor-pointer"}>Home</button>
                         <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 cursor-pointer"}>Genres</button>
                         <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 cursor-pointer"}>years</button>
                         {
@@ -58,7 +61,6 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
                     </div>
                 </>:<></>
             }
-
         </nav>
     );
 };

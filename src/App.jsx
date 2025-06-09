@@ -3,11 +3,13 @@ import HomePage from './HomePage/HomePage.jsx'
 import {Route, Router, Routes} from "react-router-dom";
 import LoginPage from "./LoginPage.jsx";
 import {useEffect, useState} from "react";
+import MoviePlayer from "./MoviePlayer/MoviePlayer.jsx";
 const ApiKey = import.meta.env.VITE_TMDB_API_KEY;
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [profileDir, setProfileDir] = useState(null);
+    const [currentMovie, setCurrentMovie] = useState(null);
     const loginBaseUrl = "http://localhost:3000/Users";
     const genresBaseUrl = `https://api.themoviedb.org/3/genre/movie/list?language=en`;
     const options = {
@@ -17,6 +19,7 @@ function App() {
             Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlM2RkOWI5OWNjMWQwYzMxMWVkYzgxOGVhNDU5MjQ2YyIsIm5iZiI6MTc0ODcxNzgxMS43MDEsInN1YiI6IjY4M2I1MGYzOGZmNjVmYzgzOWYyYWQ1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gZitpm-MFDTtJ-BCjXS8Bw0wSeo8LlgpVZdZjyT5i9M'
         }
     };
+
 
 
     useEffect(() => {
@@ -36,9 +39,20 @@ function App() {
         catch (error) {
             console.log(error);
         }
-
-
+        finally {
+            if(JSON.parse(localStorage.getItem("currentMovie")) !== undefined) {
+                setCurrentMovie(JSON.parse(localStorage.getItem("currentMovie")))
+            }
+        }
     },[])
+
+    useEffect(() => {
+        console.log(currentMovie);
+        if(currentMovie){
+            localStorage.setItem("currentMovie", JSON.stringify(currentMovie));
+        }
+    },[currentMovie])
+
     const fetchGenres = async () => {
         const response = await fetch(genresBaseUrl, options);
         const data = await response.json();
@@ -58,8 +72,9 @@ function App() {
   return (
     <>
         <Routes>
-            <Route path="/" element={<HomePage profileDir={profileDir} setIsLoggedIn={setIsLoggedIn} isLoggedIn = {isLoggedIn}/>}/>
+            <Route path="/" element={<HomePage setCurrentMovie={setCurrentMovie} profileDir={profileDir} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>}/>
             <Route path="/login" element={<LoginPage setProfielDir={setProfileDir} setIsLoggedIn = {setIsLoggedIn}/>}/>
+            <Route path="/player" element={<MoviePlayer movie={currentMovie} profileDir={profileDir} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>}/>
         </Routes>
     </>
   )
