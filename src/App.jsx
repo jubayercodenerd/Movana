@@ -42,7 +42,7 @@ function App() {
     const fetchGenres = async () => {
         const response = await fetch(genresBaseUrl, options);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         localStorage.setItem("genres", JSON.stringify(data));
     }
 

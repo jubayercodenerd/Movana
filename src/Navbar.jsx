@@ -44,16 +44,16 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
                 setIsMenuModalVisible(!isMenuModalVisible)
             }}
                 className={"h-[40px] flex items-center justify-center overflow-hidden ml-[10px]"}>
-                <img className={"h-full w-full filter invert"} src="/public/project-images/menu.svg" alt="menu-icon"/>
+                <img className={"h-full w-full filter invert cursor-pointer"} src="/public/project-images/menu.svg" alt="menu-icon"/>
             </button>
             {
                 isMenuModalVisible?<>
                     <div    onMouseOver={()=>setIsMenuModalVisible(true)} onMouseLeave={()=>setIsMenuModalVisible(false)}
                         className={"absolute top-[60px] w-[120px] flex flex-col items-center justify-center gap-[2px] bg-black rounded-xl overflow-hidden"}>
-                        <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 "}>Genres</button>
-                        <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200"}>years</button>
+                        <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 cursor-pointer"}>Genres</button>
+                        <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 cursor-pointer"}>years</button>
                         {
-                            !isLoggedIn ? <></>:<button onClick={ () => { setIsLoggedIn(false); localStorage.removeItem("user"); setIsMenuModalVisible(false)}} className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200"}>Log Out</button>
+                            !isLoggedIn ? <></>:<button onClick={ () => { setIsLoggedIn(false); localStorage.removeItem("user"); setIsMenuModalVisible(false)}} className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 cursor-pointer"}>Log Out</button>
                         }
                     </div>
                 </>:<></>

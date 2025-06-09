@@ -2,9 +2,10 @@ import {useEffect} from "react";
 
 const MovieCard = ({key,poster,rating,title,date,lang,genreIds,genres}) => {
     const genreNames = genres.genres.filter(genre => (genreIds.includes(genre.id)));
-    useEffect(() => {
-        console.log(genreNames);
-    }, []);
+    // console.log(genreIds)
+    // useEffect(() => {
+    //     console.log(genreNames);
+    // }, []);
     return (
         <div className={"z-0 h-[340px] w-[180px] p-[8px] rounded-lg bg-[rgba(230,0,0,.2)] max-md:h-[320px] max-md:w-[180px] max-md:min-w-[180px] flex flex-col items-start justify-between"}>
             <img className={"max-h-[260px] rounded-sm max-md:max-h-[300px]"} src={poster?`https://image.tmdb.org/t/p/w500/${poster}`:'/public/project-images/No-Poster.png' } alt="poster"/>

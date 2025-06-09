@@ -27,13 +27,15 @@ const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
             ? `${baseUrl}/search/movie?query=${search}&include_adult=true&language=en-US&page=${page}`
             : `${baseUrl}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`);
         }, [search,page])
-    useEffect(() => {
-        console.log(genres);
-    })
+
+    // useEffect(() => {
+    //     console.log(genres);
+    // })
 
     useDebounce(() => {
         fetchMovies(endPoint);
     },500,[endPoint]);
+
     // useEffect(() => {
     //
     //     fetchMovies(endPoint);
@@ -122,7 +124,6 @@ const HomePage = ({setIsLoggedIn,isLoggedIn, profileDir}) => {
                 }
                 <div className={"z-50 flex justify-center items-center min-w-[35px] p[5px] h-full bg-[rgba(230,0,0,.2)] rounded-sm"}><p className={"text-xl text-white"}>{page}</p></div>
                 {
-
                     page === noOfPages? <></>:<>
                         <button onClick={() =>{setMovies([]); setPage(prevState => prevState + 1); console.log(page); scrollTo({top: 400, behavior: "smooth"})}} className={"relative flex justify-center items-center min-w-[100px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
                             <p className={"text-center"}>Next</p>
