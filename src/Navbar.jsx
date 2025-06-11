@@ -25,7 +25,9 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir, setSearch}) => {
 
             {
                 isLoggedIn ? (
-                    <div className="h-[70%] aspect-square rounded-full border-2 border-white overflow-hidden">
+                    <div onClick={() => {
+                        setIsMenuModalVisible(!isMenuModalVisible)
+                    }} className="h-[70%] aspect-square rounded-full border-2 border-white overflow-hidden cursor-pointer">
                         <img src={profileDir?profileDir:'/public/profile-pictures/default.jpg'} alt=""/>
                     </div>
                 ) : (
@@ -33,30 +35,22 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir, setSearch}) => {
                         <button
                             onMouseOver={() => setSignInHovered(true)}
                             onMouseLeave={() => setSignInHovered(false)}
-                            className={`h-[40px] w-[110px] ${signInHovered ? 'bg-[rgba(230,0,0,.5)]' : 'bg-[rgba(230,20,20,.6)]'} cursor-pointer rounded-full flex items-center justify-center`}
+                            className={`h-[40px] w-[110px] ${signInHovered ? 'bg-gradient-to-r to-blue-800 from-purple-800' : 'bg-gradient-to-r from-blue-900 to-purple-900'} 
+                            transition-colors duration-200 ease-in-out cursor-pointer rounded-full flex items-center justify-center max-md:h-[35px] max-md:w-[90px]`}
                         >
-                            <p className="bg-clip-text text-xl text-transparent font-bold bg-gradient-to-b from-blue-200 to-white">
+                            <p className="bg-clip-text text-xl text-transparent font-bold bg-white max-md:text-lg">
                                 Sign In
                             </p>
                         </button>
                     </Link>
                 )
             }
-            <button onClick={() => {
-                setIsMenuModalVisible(!isMenuModalVisible)
-            }}
-                className={"h-[40px] flex items-center justify-center overflow-hidden ml-[10px]"}>
-                <img className={"h-full w-full filter invert cursor-pointer"} src="/public/project-images/menu.svg" alt="menu-icon"/>
-            </button>
             {
                 isMenuModalVisible?<>
                     <div    onMouseOver={()=>setIsMenuModalVisible(true)} onMouseLeave={()=>setIsMenuModalVisible(false)}
                         className={"absolute top-[60px] w-[120px] flex flex-col items-center justify-center gap-[2px] bg-black rounded-xl overflow-hidden"}>
-                        <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 cursor-pointer"}>Home</button>
-                        <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 cursor-pointer"}>Genres</button>
-                        <button className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 cursor-pointer"}>years</button>
                         {
-                            !isLoggedIn ? <></>:<button onClick={ () => { setIsLoggedIn(false); localStorage.removeItem("user"); setIsMenuModalVisible(false)}} className={"h-[40px] w-full bg-[rgba(230,0,0,.3)] text-sm font-semibold text-gray-200 cursor-pointer"}>Log Out</button>
+                            !isLoggedIn ? <></>:<button onClick={ () => { setIsLoggedIn(false); localStorage.removeItem("user"); setIsMenuModalVisible(false)}} className={"h-[40px] w-full bg-gradient-to-r from-blue-950 to-purple-950 text-sm font-semibold text-gray-200 cursor-pointer"}>Log Out</button>
                         }
                     </div>
                 </>:<></>

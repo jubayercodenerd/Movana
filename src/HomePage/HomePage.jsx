@@ -21,11 +21,13 @@ const HomePage = ({setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir}) => {
     const [noOfPages, setNoOfPages] = React.useState(1);
     const [endPoint, setEndPoint] = React.useState(`${baseUrl}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`);
     const [loading, setLoading] = React.useState(true);
+    const [showFilter, setShowFilter] = React.useState(false);
+    const [showAdult, setShowAdult] = React.useState(false);
 
     useEffect(() => {
         setEndPoint(search !== ""
-            ? `${baseUrl}/search/movie?query=${search}&include_adult=true&language=en-US&page=${page}`
-            : `${baseUrl}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`);
+            ? `${baseUrl}/search/movie?query=${search}&include_adult=${showAdult}&language=en-US&page=${page}`
+            : `${baseUrl}/discover/movie?include_adult=${showAdult}&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`);
         }, [search,page])
 
     // useEffect(() => {
@@ -40,6 +42,11 @@ const HomePage = ({setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir}) => {
     //
     //     fetchMovies(endPoint);
     // },[endPoint])
+
+    function handleSubmit(e){
+        e.preventDefault();
+        setShowFilter(false);
+    }
 
     async function fetchMovies(url) {
         setErrorMessage("");
@@ -81,11 +88,39 @@ const HomePage = ({setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir}) => {
                 </div>
                 <img className={"max-h-[80px] my-[25px] max-md:max-h-[40px]"} src="/public/project-images/MovanaLogo.png" alt=""/>
             </div>
-            <div className={"z-10 max-w-[700px] w-full h-[40px] max-md:h-[35px] flex justify-start items-center rounded-sm bg-[rgba(230,0,0,.2)] "}>
-                <img className={"ml-[10px] h-[50%] filter invert"} src="/public/project-images/search.svg" alt="search-icon"/>
-                <input className={"h-full w-full px-[10px] text-lg text-gray-200 focus:outline-none max-md:text-sm"} placeholder={"Search movies"} type="text"
-                    onChange={e =>{setSearch(e.target.value); setPage(1);}}
-                />
+            <div className={"z-[200] max-w-[800px] w-[85%] border- border-white flex justify-between gap-[20px]"}>
+                <div className={"z-10 w-full h-[40px] max-md:h-[35px] flex justify-start items-center rounded-sm bg-gradient-to-br from-purple-950 to-[rgba(0,0,255,.4)] border- border-blue-400"}>
+                    <img className={"ml-[10px] h-[50%] filter invert"} src="/public/project-images/search.svg" alt="search-icon"/>
+                    <input className={"h-full w-full px-[10px] text-lg text-gray-200 focus:outline-none max-md:text-sm"} placeholder={"Search movies"} type="text"
+                        onChange={e =>{setSearch(e.target.value); setPage(1);}}
+                    />
+                </div>
+                <div onClick={() => setShowFilter(!showFilter)} className={"w-[100px] text-lg text-white flex justify-center items-center rounded-sm bg-gradient-to-br to-purple-950 from-[rgba(0,0,255,.4)] relative cursor-pointer"}>Filter
+                    <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()} className={`z-[50] flex flex-col justify-start p-[20px] items-start absolute top-[125%] right-0 w-auto h-auto ${showFilter?"":"hidden"} 
+                                    rounded-sm bg-gradient-to-br from-purple-950 to-[rgba(0,0,150,1)] text-lg gap-[10px] max-md:text-sm`}>
+                        <div className={"flex justify-between items-center bg-blue-950 px-[10px] py-[5px] rounded-sm border- border-yellow-300 gap-[10px] w-full"}>
+                            <label htmlFor={"adult-checkbox"}>Include adult</label>
+                            <input id={"adult-checkbox"} className={"h-[20px] w-[20px]"} type="checkbox"/>
+                        </div>
+                        <div className={"flex flex-col justify-center items-start border- border-yellow-300 gap-[10px] w-full"}>
+                            <label htmlFor={"year"}>year</label><input className={"w-full bg-blue-950 px-[10px] py-[5px] rounded-sm focus:outline-none"} id={"year"} type="text" placeholder={"year"}/>
+                        </div>
+                        <div className={"flex flex-col justify-center items-start  border- border-yellow-300 gap-[10px] w-full"}>
+                            <label>sort by </label>
+                            <select className={"px-[10px] py-[5px] rounded-sm focus:outline-none bg-blue-950"} name="" id="sort">
+                                <option value="title.asc">Title asc.</option>
+                                <option value="title.desc">Title desc.</option>
+                                <option value="popularity.asc">Popularity asc.</option>
+                                <option value="popularity.desc">Popularity desc.</option>
+                                <option value="vote_average.asc">Rating asc.</option>
+                                <option value="vote_average.desc">Rating desc.</option>
+                                <option value="primary_release_date.asc">Release date asc.</option>
+                                <option value="primary_release_date.desc">Release date desc.</option>
+                            </select>
+                        </div>
+                        <button type={"submit"} className={"flex flex-col justify-center items-center mt-[15px] py-[5px] rounded-sm bg-gradient-to-br to-purple-900 from-blue-900 border- border-yellow-300 w-full cursor-pointer"}>Submit</button>
+                    </form>
+                </div>
             </div>
             <section className={"z-20 flex justify-center max-md:justify-center items-center flex-wrap gap-[20px] max-w-[1100px] my-[40px] max-md:my-[20px]"}>
                 {   movies && movies.length > 0?(
@@ -111,26 +146,31 @@ const HomePage = ({setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir}) => {
             <div className={"h-[35px] flex justify-center items-center flex-wrap mb-[30px] gap-[10px]"}>
                 {
                     page > 1? <>
-                            <button onClick={() =>{setMovies([]); setPage(1); console.log(page);} } className={"relative flex justify-center items-center min-w-[50px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
+                            <button onClick={() =>{setMovies([]); setPage(1); console.log(page);} } className={"relative flex justify-center items-center min-w-[50px] h-full bg-gradient-to-br from-purple-950 to-[rgba(0,0,255,.4)] text-lg text-white  rounded-sm cursor-pointer"}>
                                 <img className={"h-full filter invert"} src="/public/project-images/angle-left.svg" alt=""/>
                                 <img className={"h-full filter invert"} src="/public/project-images/angle-left.svg" alt=""/>
                             </button>
-                            <button onClick={() =>{setMovies([]); setPage(prevState => prevState - 1); console.log(page);} } className={"relative flex justify-center items-center min-w-[100px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
+                            <button onClick={() =>{setMovies([]); setPage(prevState => prevState - 1); console.log(page);} } className={"relative flex justify-center items-center min-w-[60px] h-full bg-gradient-to-br from-purple-950 to-[rgba(0,0,255,.4)] text-lg text-white  rounded-sm cursor-pointer"}>
                                 <p className={"text-center"}>Prev</p>
                             </button>
                         </>
                     : <></>
                 }
-                <div className={"z-50 flex justify-center items-center min-w-[35px] p[5px] h-full bg-[rgba(230,0,0,.2)] rounded-sm"}><p className={"text-xl text-white"}>{page}</p></div>
+                <div className={"z-50 flex justify-center items-center min-w-[35px] p[5px] h-full bg-gradient-to-br from-purple-950 via-[rgb(0,0,255,.4)] to-purple-950  rounded-sm"}><p className={"text-xl text-white"}>{page}</p></div>
                 {
                     page === noOfPages? <></>:<>
-                        <button onClick={() =>{setMovies([]); setPage(prevState => prevState + 1); console.log(page); scrollTo({top: 400, behavior: "smooth"})}} className={"relative flex justify-center items-center min-w-[100px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
+                        <button onClick={() =>{setMovies([]); setPage(prevState => prevState + 1); console.log(page); scrollTo({top: 400, behavior: "smooth"})}} className={"relative flex justify-center items-center min-w-[60px] h-full bg-gradient-to-br to-purple-950 from-[rgba(0,0,255,.4)] text-lg text-white  rounded-sm cursor-pointer"}>
                             <p className={"text-center"}>Next</p>
                         </button>
-                        <button onClick={() =>{setMovies([]); setPage(noOfPages); console.log(page);} } className={"relative flex justify-center items-center min-w-[50px] h-full bg-[rgba(230,0,0,.2)] text-lg text-white  rounded-sm cursor-pointer"}>
-                            <img className={"h-full filter invert"} src="/public/project-images/angle-right.svg" alt=""/>
-                            <img className={"h-full filter invert"} src="/public/project-images/angle-right.svg" alt=""/>
-                        </button>
+                    </>
+                }
+                {
+                    search === "" || page === noOfPages? <></>
+                        :<>
+                            <button onClick={() =>{setMovies([]); setPage(noOfPages); console.log(page);} } className={"relative flex justify-center items-center min-w-[50px] h-full bg-gradient-to-br to-purple-950 from-[rgba(0,0,255,.4)] text-lg text-white  rounded-sm cursor-pointer"}>
+                                <img className={"h-full filter invert"} src="/public/project-images/angle-right.svg" alt=""/>
+                                <img className={"h-full filter invert"} src="/public/project-images/angle-right.svg" alt=""/>
+                            </button>
                     </>
                 }
             </div>
