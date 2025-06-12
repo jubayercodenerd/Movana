@@ -15,55 +15,62 @@ const LoginPage = ({setIsLoggedIn,setProfielDir}) => {
 
     async function handleLogin(event) {
         event.preventDefault();
-        if (!isNewUser) {
-            const response = await fetch(`${baseUrl}?email=${email}&password=${password}`);
-            const data = await response.json();
-            if (data.length === 1 && data[0].email === email && data[0].password === password) {
-                setProfielDir(data[0].profilePicture);
-                setIsLoggedIn(true);
-                setWrongCreds(false);
-                setEmailExists(false);
-                localStorage.setItem("user", JSON.stringify(data[0]));
-                navigate("/");
-            } else {
-                setWrongCreds(true);
-                setEmailExists(false);
-                setEmail("");
-                setPassword("");
+        try{
+            if (!isNewUser) {
+                const response = await fetch(`${baseUrl}?email=${email}&password=${password}`);
+                const data = await response.json();
+                if (data.length === 1 && data[0].email === email && data[0].password === password) {
+                    setProfielDir(data[0].profilePicture);
+                    setIsLoggedIn(true);
+                    setWrongCreds(false);
+                    setEmailExists(false);
+                    localStorage.setItem("user", JSON.stringify(data[0]));
+                    navigate("/");
+                } else {
+                    setWrongCreds(true);
+                    setEmailExists(false);
+                    setEmail("");
+                    setPassword("");
+                }
+            }
+            else {
+                const response = await fetch(`${baseUrl}?email=${email}`);
+                const data = await response.json();
+                if (data.length > 0) {
+                    setEmailExists(true);
+                    setWrongCreds(false);
+                    setEmail("");
+                    setPassword("");
+                    return;
+                }
+                const post = await fetch(`${baseUrl}`,{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        "firstName": firstName,
+                        "lastName": lastName,
+                        "profilePicture": "/profile-pictures/default.jpg",
+                        "email": email,
+                        "password": password,
+                        "history": []
+                    }),
+                });
+                if (post.status === 201) {
+                    const res = await post.json();
+                    setIsLoggedIn(true);
+                    setWrongCreds(false);
+                    setEmailExists(false);
+                    localStorage.setItem("user", JSON.stringify(res));
+                    navigate("/");
+                }
             }
         }
-        else {
-            const response = await fetch(`${baseUrl}?email=${email}`);
-            const data = await response.json();
-            if (data.length > 0) {
-                setEmailExists(true);
-                setWrongCreds(false);
-                setEmail("");
-                setPassword("");
-                return;
-            }
-            const post = await fetch(`${baseUrl}`,{
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    "firstName": firstName,
-                    "lastName": lastName,
-                    "profilePicture": "/profile-pictures/default.jpg",
-                    "email": email,
-                    "password": password,
-                    "history": []
-                }),
-            });
-            if (post.status === 201) {
-                const res = await post.json();
-                setIsLoggedIn(true);
-                setWrongCreds(false);
-                setEmailExists(false);
-                localStorage.setItem("user", JSON.stringify(res));
-                navigate("/");
-            }
+        catch (error) {
+            console.log(error);
+            alert("It is only a mock login page. Only works with json-sever. Will not work in the deployed version without proper backend.");
+            navigate('/');
         }
     }
     return (
@@ -93,6 +100,7 @@ const LoginPage = ({setIsLoggedIn,setProfielDir}) => {
                 {
                     emailExists? <><p className={"text-lg text-red-700"}>Email already registered!</p></>:<></>
                 }
+                <p className={"text-white text-xs text-center"}>Note: It is only a mock login page. Only works with json-sever. Will not work in the deployed version without proper backend.</p>
             </form>
         </div>
     )

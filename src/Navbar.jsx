@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
     const [signInHovered, setSignInHovered] = useState(false);
     const [isMenuModalVisible, setIsMenuModalVisible] = useState(false);
     const [isVisible, setIsVisible] = React.useState(true);
+    const navigate = useNavigate();
+
     useEffect(()=>{
         const handleScroll = () => {
             if(scrollY > 300){
@@ -18,7 +20,7 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
 
     return (
         <nav className={`fixed top-0 z-50 h-[60px] w-full px-6 flex items-center justify-end bg-gradient-to-b from-gray-950 to-transparent max-md:h-[50px] ${!isVisible ? 'hidden' : ''}`} >
-            <img className={"max-h-[80%] mr-auto my-[25px]"} src="/project-images/MovanaLogo.png" alt="Movana logo"/>
+            <img onClick={() => navigate('/')} className={"max-h-[80%] mr-auto my-[25px] cursor-pointer"} src="/project-images/MovanaLogo.png" alt="Movana logo"/>
             {
                 isLoggedIn ? (
                     <div onClick={() => {

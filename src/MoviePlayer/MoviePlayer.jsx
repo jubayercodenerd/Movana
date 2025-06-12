@@ -57,7 +57,7 @@ const MoviePlayer = ({movie, setIsLoggedIn,isLoggedIn, profileDir}) => {
                     <p>/</p><p>{errorMessage ===""? originalTitle : errorMessage}</p>
                 </div>
                 <div className={"w-full aspect-video mt-[10px]"}>
-                    <iframe className={"h-full w-full text-green-700"} src="https://www.youtube.com/embed/Hl9iVr3ZXR8?si=6StpeV23KnGFWeP9"
+                    <iframe className={"h-full w-full text-green-700"} src="https://www.youtube.com/embed/xYQ28eu35gI?si=Oi2WTHaKYWVIhAM0"
                             title="YouTube video player" frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerPolicy="strict-origin-when-cross-origin"

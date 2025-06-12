@@ -132,10 +132,17 @@ const HomePage = ({setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir,search,s
                 <div onClick={() => setShowFilter(!showFilter)} className={"w-[100px] text-lg text-white flex justify-center items-center rounded-sm bg-gradient-to-br to-purple-950 from-[rgba(0,0,255,.4)] relative cursor-pointer"}>Filter
                     <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()} className={`z-[50] flex flex-col justify-start p-[20px] items-start absolute top-[125%] right-0 w-auto h-auto ${showFilter?"":"hidden"} 
                                     rounded-sm bg-gradient-to-br from-purple-950 to-[rgba(0,0,150,1)] text-lg gap-[10px] max-md:text-sm`}>
-                        <div className={"flex justify-between items-center bg-blue-950 px-[10px] py-[5px] rounded-sm border- border-yellow-300 gap-[10px] w-full"}>
-                            <label className={"text-nowrap"} htmlFor={"adult-checkbox"}>Include adult</label>
-                            <input id={"adult-checkbox"} className={"h-[20px] w-[20px]"} type="checkbox"/>
-                        </div>
+                        <label
+                            htmlFor="adult-checkbox"
+                            className="outline-none flex justify-between items-center bg-blue-950 px-[10px] py-[5px] rounded-sm gap-[10px] w-full cursor-pointer"
+                        >
+                            <span className="text-nowrap">Include adult</span>
+                            <input
+                                id="adult-checkbox"
+                                className="h-[20px] w-[20px] pointer-events-none"
+                                type="checkbox"
+                            />
+                        </label>
                         <div className={"flex flex-col justify-center items-start border- border-yellow-300 gap-[10px] w-full"}>
                             <label htmlFor={"year"}>year</label><input className={"w-full bg-blue-950 px-[10px] py-[5px] rounded-sm focus:outline-none"} id={"year"} type="text" placeholder={"year"}/>
                         </div>
