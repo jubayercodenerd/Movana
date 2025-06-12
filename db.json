@@ -5,8 +5,8 @@
       "firstName": "Ahmed",
       "lastName": "Jubayer",
       "profilePicture": "/profile-pictures/001.jpg",
-      "email": "foisal.ahmed31.12@gmail.com",
-      "password": "azad0046",
+      "email": "ahmed@jubayer",
+      "password": "1234",
       "history": [
         {
           "movieId": "332423"
@@ -22,7 +22,7 @@
       "lastName": "Shuvo",
       "profilePicture": "/profile-pictures/002.jpg",
       "email": "ff@ff.ff",
-      "password": "azad0046",
+      "password": "1234",
       "history": [
         {
           "movieId": "332423"
