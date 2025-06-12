@@ -1,6 +1,4 @@
-import {Link, useNavigate} from "react-router-dom";
-
-const navigate = useNavigate;
+import {Link} from "react-router-dom";
 
 const MovieCard = ({movieId, setCurrentMovie,poster,rating,title,date,lang,genreIds,genres}) => {
 

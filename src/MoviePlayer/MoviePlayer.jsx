@@ -31,22 +31,21 @@ const MoviePlayer = ({movie, setIsLoggedIn,isLoggedIn, profileDir}) => {
                 const data = await response.json();
                 setErrorMessage("");
                 console.log(data);
-                setOriginalTitle(data.title);
+                setOriginalTitle(data.title || "N/A");
                 setPosterPath(data.poster_path?`https://image.tmdb.org/t/p/w500/${data.poster_path}`:'/public/project-images/No-Poster.png');
-                setOverview(data.overview);
-                setGenres(data.genres);
-                setRuntime(data.runtime);
-                setRating(data.vote_average.toFixed(1));
-                setLanguage(data.spoken_languages[0].english_name);
+                setOverview(data.overview || "N/A");
+                setGenres(data.genres || "N/A");
+                setRuntime(data.runtime || "N/A");
+                setRating(data.vote_average?.toFixed(1) || "N/A");
+                setLanguage(data.spoken_languages?.[0]?.english_name || "N/A");
                 console.log(language);
             } catch (err) {
                 console.log(err);
                 setErrorMessage(err.message);
             }
-
         };
 
-        fetchData()
+        fetchData();
     }, []);
 
     return (
@@ -113,16 +112,15 @@ const MoviePlayer = ({movie, setIsLoggedIn,isLoggedIn, profileDir}) => {
                                 </div>
                             </div>
                         </div>
-                        <footer className={"w-screen shrink min-w-[300px] text-white p-[40px] mt-[30px] max-md:p-[20px] bg-gray-900 border- border-blue-300"}>
-                            <div className={"w-full shrink min-w-[300px] text-white border- border-yellow-300"}>
-                                <h1 className={"mb-[15px] text-2xl max-md:text-xl"}>About Us</h1>
+                        <footer className={"w-screen shrink min-w-[300px] flex justify-center items-center text-white p-[40px] mt-[30px] max-md:p-[20px] bg-gray-900 border- border-blue-300"}>
+                            <div className={"w-[84%] max-md:w-[90%] shrink min-w-[300px] text-white border- border-yellow-300"}>
+                                <h1 className={"mb-[15px] text-2xl max-md:text-xl max-md:mb-[8px]"}>About Us</h1>
                                 <p className={"text-lg max-md:text-sm"}>is a free TV shows streaming website with zero ads. It allows you to <b>watch movies online</b> in high quality for free.</p>
                             </div>
                         </footer>
                     </>:
                         <><p className={"text-3xl text-white"}>{errorMessage}</p></>
                 }
-
             </section>
         </main>
     )
