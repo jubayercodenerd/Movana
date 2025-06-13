@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 
 const MovieCard = ({movieId, setCurrentMovie,poster,rating,title,date,lang,genreIds,genres}) => {
 
-    const genreNames = genres.genres.filter(genre => (genreIds.includes(genre.id)));
+    const genreNames = genres?.genres?.filter(genre => (genreIds?.includes(genre?.id)));
     // console.log(genreIds)
     // useEffect(() => {
     //     console.log(genreNames);
@@ -26,13 +26,13 @@ const MovieCard = ({movieId, setCurrentMovie,poster,rating,title,date,lang,genre
                     </div>
                     <div className={"flex flex-wrap justify-start items-center mt-[3px] gap-[2px]"}>
                         {
-                            genreNames[0]?<p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>{genreNames[0].name}</p>:<></>
+                            genreNames[0]?<p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>{genreNames?.[0]?.name}</p>:<></>
                         }
                         {
-                            genreNames[1]?<><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>•</p><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>{genreNames[1].name}</p></>:<></>
+                            genreNames[1]?<><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>•</p><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>{genreNames?.[1]?.name}</p></>:<></>
                         }
                         {
-                            genreNames[2]?<><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>•</p><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>{genreNames[2].name}</p></>:<></>
+                            genreNames[2]?<><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>•</p><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>{genreNames?.[2]?.name}</p></>:<></>
                         }
                     </div>
                 </div>
