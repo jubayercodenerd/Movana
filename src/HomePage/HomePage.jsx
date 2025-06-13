@@ -4,7 +4,6 @@ import Navbar from "../Navbar.jsx";
 import MovieCard from "./MovieCard.jsx";
 const baseUrl = 'https://api.themoviedb.org/3';
 const ApiKey = import.meta.env.VITE_TMDB_API_KEY;
-const genres = JSON.parse(localStorage.getItem('genres'));
 const options = {
     method: 'GET',
     headers: {
@@ -13,7 +12,7 @@ const options = {
     }
 };
 
-const HomePage = ({setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir,search,setSearch}) => {
+const HomePage = ({genres,setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir,search,setSearch}) => {
     const [movies, setMovies] = React.useState([]);
     const [errorMessage, setErrorMessage] = React.useState("");
     const [page, setPage] = React.useState(1);

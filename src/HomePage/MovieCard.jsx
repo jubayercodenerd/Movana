@@ -16,7 +16,8 @@ const MovieCard = ({movieId, setCurrentMovie,poster,rating,title,date,lang,genre
                         <p className={"text-[13px] max-md:text-[11px] font-semibold text-gray-300"}>{title}</p>
                     </div>
                     <div className={"flex flex-wrap justify-start items-center my-[3px] gap-[2px]"}>
-                        <img className={"h-[12px]"} src="/public/project-images/star.png" alt="ratin-star"/>
+                        {/*<img className={"h-[12px]"} src="/public/project-images/star.png" alt="ratin-star"/>*/}
+                        <p className={"text-[12px]"}>⭐</p>
                         <p className={"text-[12px] max-md:text-[11px] font-semibold text-gray-300"}>{rating}</p>
                         <p className={"text-[12px] max-md:text-[11px] font-semibold text-gray-300"}>•</p>
                         <p className={"text-[12px] max-md:text-[11px] font-semibold text-gray-300"}>{date}</p>
@@ -31,7 +32,7 @@ const MovieCard = ({movieId, setCurrentMovie,poster,rating,title,date,lang,genre
                             genreNames[1]?<><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>•</p><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>{genreNames[1].name}</p></>:<></>
                         }
                         {
-                            genreNames[2]?<><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>•</p><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>{genreNames[1].name}</p></>:<></>
+                            genreNames[2]?<><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>•</p><p className={"text-[10px] max-md:text-[10px] font-semibold text-gray-300"}>{genreNames[2].name}</p></>:<></>
                         }
                     </div>
                 </div>

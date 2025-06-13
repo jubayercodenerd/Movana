@@ -5,6 +5,7 @@ import LoginPage from "./LoginPage.jsx";
 import React, {useEffect, useState} from "react";
 import MoviePlayer from "./MoviePlayer/MoviePlayer.jsx";
 const ApiKey = import.meta.env.VITE_TMDB_API_KEY;
+const genres = JSON.parse(localStorage.getItem('genres'));
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -73,7 +74,7 @@ function App() {
   return (
     <>
         <Routes>
-            <Route path="/" element={<HomePage search={search} setSearch={setSearch} setCurrentMovie={setCurrentMovie} profileDir={profileDir} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>}/>
+            <Route path="/" element={<HomePage genres={genres} search={search} setSearch={setSearch} setCurrentMovie={setCurrentMovie} profileDir={profileDir} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>}/>
             <Route path="/login" element={<LoginPage setProfielDir={setProfileDir} setIsLoggedIn = {setIsLoggedIn}/>}/>
             <Route path="/player" element={<MoviePlayer movie={currentMovie} profileDir={profileDir} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>}/>
         </Routes>
