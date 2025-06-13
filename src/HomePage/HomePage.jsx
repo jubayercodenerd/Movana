@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import {useDebounce} from "react-use";
 import Navbar from "../Navbar.jsx";
 import MovieCard from "./MovieCard.jsx";
@@ -11,9 +11,11 @@ const options = {
         Authorization: `Bearer ${ApiKey}`
     }
 };
+const genresBaseUrl = `${baseUrl}/genre/movie/list?language=en`;
 
-const HomePage = ({genres,setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir,search,setSearch}) => {
-    const [movies, setMovies] = React.useState([]);
+const HomePage = ({setCurrentMovie, setIsLoggedIn, isLoggedIn, profileDir, search, setSearch}) => {
+    const [movies, setMovies] = useState([]);
+    const [genres, setGenres] = useState(null);
     const [errorMessage, setErrorMessage] = React.useState("");
     const [page, setPage] = React.useState(1);
     const [noOfPages, setNoOfPages] = React.useState(1);
@@ -108,6 +110,37 @@ const HomePage = ({genres,setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir,s
         }
 
     }
+
+    // Separate useEffect for fetching genres
+    useEffect(() => {
+        const fetchGenres = async () => {
+            try {
+                const response = await fetch(genresBaseUrl, options);
+                const data = await response.json();
+                setGenres(data);
+                localStorage.setItem("genres", JSON.stringify(data));
+            } catch (error) {
+                console.error("Error fetching genres:", error);
+                // Try to get genres from localStorage if fetch fails
+                const cachedGenres = localStorage.getItem("genres");
+                if (cachedGenres) {
+                    setGenres(JSON.parse(cachedGenres));
+                }
+            }
+        };
+
+        // First try to get from localStorage
+        const cachedGenres = localStorage.getItem("genres");
+        if (cachedGenres) {
+            setGenres(JSON.parse(cachedGenres));
+        }
+        // Fetch fresh data anyway
+        fetchGenres();
+    }, []);
+
+    // Only show movies when genres are available
+    const showMovies = genres && movies.length > 0;
+
     return (
         <main className={"relative flex flex-col items-center w-full min-h-screen overflow-x-hidden bg-black border-2 px-[10px]"}>
             <img className={"absolute -top-[45%] min-w-[1000px] z-0 lg:-top-[15%] max-xl:-top-[2%]"} src="/project-images/certian.jpg" alt=""/>
@@ -165,25 +198,31 @@ const HomePage = ({genres,setCurrentMovie,setIsLoggedIn,isLoggedIn, profileDir,s
                 </div>
             </div>
             <section className={"z-20 flex justify-center max-md:justify-center items-center flex-wrap gap-[20px] max-w-[1100px] my-[40px] max-md:my-[20px]"}>
-                {   movies && movies.length > 0?(
-                        movies.map((movie) => {
-                            let title = movie.title.length > 22 ? movie.title.slice(0,22) + "..." : movie.title;
-                            let rating = movie.vote_average.toFixed(1);
-                            let poster = movie.poster_path;
-                            let release_date = movie.release_date.slice(0,4);
-                            let movieId = movie.id;
-                            let genresIds = movie.genre_ids;
-                            return <MovieCard key={movieId} movieId={movieId} setCurrentMovie={setCurrentMovie} poster={poster} rating={rating} title={title} date={release_date} lang={movie.original_language} genreIds={genresIds} genres={genres}/>
-                        })
-                    ):(
-                        <div className="w-full text-center">
-                            {
-                                loading?<p className="text-white text-4xl">{errorMessage ===""?"Loading":errorMessage}</p>
-                                    : errorMessage?<p className="text-white text-4xl">{errorMessage ===""?"No Movies found":errorMessage}</p>:<></>
-                            }
-                        </div>
-                    )
-                }
+                {showMovies ? (
+                    movies.map((movie) => {
+                        let title = movie.title.length > 22 ? movie.title.slice(0,22) + "..." : movie.title;
+                        return (
+                            <MovieCard
+                                key={movie.id}
+                                movieId={movie.id}
+                                setCurrentMovie={setCurrentMovie}
+                                poster={movie.poster_path}
+                                rating={movie.vote_average.toFixed(1)}
+                                title={title}
+                                date={movie.release_date.slice(0,4)}
+                                lang={movie.original_language}
+                                genreIds={movie.genre_ids}
+                                genres={genres}
+                            />
+                        );
+                    })
+                ) : (
+                    <div className="w-full text-center">
+                        <p className="text-white text-4xl">
+                            {loading ? "Loading" : errorMessage || "No Movies found"}
+                        </p>
+                    </div>
+                )}
             </section>
             <div className={"h-[35px] flex justify-center items-center flex-wrap mb-[30px] gap-[10px]"}>
                 {
