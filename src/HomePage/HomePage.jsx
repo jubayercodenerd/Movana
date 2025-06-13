@@ -103,6 +103,7 @@ const HomePage = ({setCurrentMovie, setIsLoggedIn, isLoggedIn, profileDir, searc
             setErrorMessage("")
         }
         catch (error){
+            setLoading(false)
             setMovies([]);
             setNoOfPages(1);
             setErrorMessage(error.message);
@@ -154,14 +155,14 @@ const HomePage = ({setCurrentMovie, setIsLoggedIn, isLoggedIn, profileDir, searc
                 </div>
                 {/*<img className={"max-h-[80px] my-[25px] max-md:max-h-[40px]"} src="/project-images/MovanaLogo.png" alt="Movana logo"/>*/}
             </div>
-            <div className={"z-[200] max-w-[800px] w-[85%] border- border-white flex justify-between gap-[20px]"}>
+            <div className={"z-[200] max-w-[800px] w-[90%] border- border-white flex justify-between gap-[20px]"}>
                 <div className={"z-10 w-full h-[40px] max-md:h-[35px] flex justify-start items-center rounded-sm bg-gradient-to-br from-purple-950 to-[rgba(0,0,255,.4)] border- border-blue-400"}>
                     <img className={"ml-[10px] h-[50%] filter invert"} src="/project-images/search.svg" alt="search-icon"/>
                     <input className={"h-full w-full px-[10px] text-lg text-gray-200 focus:outline-none max-md:text-sm"} defaultValue={search} placeholder={"Search movies"} type="text"
                         onChange={e =>{setSearch(e.target.value); setPage(1);}}
                     />
                 </div>
-                <div onClick={() => setShowFilter(!showFilter)} className={"w-[100px] text-lg text-white flex justify-center items-center rounded-sm bg-gradient-to-br to-purple-950 from-[rgba(0,0,255,.4)] relative cursor-pointer"}>Filter
+                <div onClick={() => setShowFilter(!showFilter)} className={"w-[100px] max-md:w-[80px] text-lg max-md:text-sm text-white flex justify-center items-center rounded-sm bg-gradient-to-br to-purple-950 from-[rgba(0,0,255,.4)] relative cursor-pointer"}>Filter
                     <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()} className={`z-[50] flex flex-col justify-start p-[20px] items-start absolute top-[125%] right-0 w-auto h-auto ${showFilter?"":"hidden"} 
                                     rounded-sm bg-gradient-to-br from-purple-950 to-[rgba(0,0,150,1)] text-lg gap-[10px] max-md:text-sm`}>
                         <label
@@ -197,7 +198,7 @@ const HomePage = ({setCurrentMovie, setIsLoggedIn, isLoggedIn, profileDir, searc
                     </form>
                 </div>
             </div>
-            <section className={"z-20 flex justify-center max-md:justify-center items-center flex-wrap gap-[20px] max-w-[1100px] my-[40px] max-md:my-[20px]"}>
+            <section className={"z-20 flex justify-center max-md:justify-center items-center flex-wrap gap-[20px] max-md:gap-[10px] max-w-[1100px] my-[40px] max-md:my-[20px]"}>
                 {showMovies ? (
                     movies.map((movie) => {
                         let title = movie.title.length > 22 ? movie.title.slice(0,22) + "..." : movie.title;
@@ -207,9 +208,9 @@ const HomePage = ({setCurrentMovie, setIsLoggedIn, isLoggedIn, profileDir, searc
                                 movieId={movie.id}
                                 setCurrentMovie={setCurrentMovie}
                                 poster={movie.poster_path}
-                                rating={movie.vote_average.toFixed(1)}
+                                rating={movie.vote_average?.toFixed(1) || "N/A"}
                                 title={title}
-                                date={movie.release_date.slice(0,4)}
+                                date={movie.release_date?.slice(0,4) || "N/A"}
                                 lang={movie.original_language}
                                 genreIds={movie.genre_ids}
                                 genres={genres}
