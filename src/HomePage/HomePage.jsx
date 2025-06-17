@@ -13,7 +13,7 @@ const options = {
 };
 const genresBaseUrl = `${baseUrl}/genre/movie/list?language=en`;
 
-const HomePage = ({setCurrentMovie, setIsLoggedIn, isLoggedIn, profileDir, search, setSearch}) => {
+const HomePage = ({setCurrentMovie, search, setSearch}) => {
     const [movies, setMovies] = useState([]);
     const [genres, setGenres] = useState(null);
     const [errorMessage, setErrorMessage] = React.useState("");
@@ -146,7 +146,7 @@ const HomePage = ({setCurrentMovie, setIsLoggedIn, isLoggedIn, profileDir, searc
         <main className={"relative flex flex-col items-center w-full min-h-screen overflow-x-hidden bg-black border-2 px-[10px]"}>
             <img className={"absolute -top-[45%] min-w-[1000px] z-0 lg:-top-[15%] max-xl:-top-[2%]"} src="/project-images/certian.jpg" alt=""/>
             <div className={"flex flex-col justify-start items-center z-10 px-[10px] max-w-[1200px] max-md:max-w-[full]"}>
-                <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} profileDir={profileDir}/>
+                <Navbar />
                 <img className={"max-w-[400px] mt-[30px] max-md:max-w-[350px]"} src="/project-images/hero-img.png " alt=""/>
                 <div className={"max-w-[900px] mb-[30px]"}>
                     <h1 className={"text-center text-5xl text-white font-bold max-md:text-3xl"}>

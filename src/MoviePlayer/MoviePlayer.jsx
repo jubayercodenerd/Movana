@@ -11,7 +11,7 @@ const options = {
     }
 };
 
-const MoviePlayer = ({movie, setIsLoggedIn,isLoggedIn, profileDir}) => {
+const MoviePlayer = ({movie}) => {
     const [originalTitle, setOriginalTitle] = React.useState("");
     const [posterPath, setPosterPath] = React.useState('/public/project-images/No-Poster.png');
     const [overview, setOverview] = React.useState("");
@@ -50,7 +50,7 @@ const MoviePlayer = ({movie, setIsLoggedIn,isLoggedIn, profileDir}) => {
 
     return (
         <main className={"bg-gray-950 min-h-screen w-screen pt-[60px]"}>
-            <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} profileDir={profileDir}/>
+            <Navbar />
             <section className={"w-[80%] mx-auto flex flex-col items-center justify-start"}>
                 <div className={"w-full flex justify-start items-center gap-x-[10px] text-white text-lg max-md:text-sm"}>
                     <Link to="/"><p>Home</p></Link>

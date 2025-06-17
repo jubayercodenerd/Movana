@@ -67,6 +67,24 @@
       "email": "11@ds.sd",
       "password": "1234",
       "history": []
+    },
+    {
+      "id": "ae30",
+      "firstName": "12",
+      "lastName": "12",
+      "profilePicture": "/profile-pictures/default.jpg",
+      "email": "11@11",
+      "password": "1234",
+      "history": []
+    },
+    {
+      "id": "af6c",
+      "firstName": "ds",
+      "lastName": "s",
+      "profilePicture": "/profile-pictures/default.jpg",
+      "email": "1@1",
+      "password": "1234",
+      "history": []
     }
   ]
 }

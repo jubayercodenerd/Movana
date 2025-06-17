@@ -8,8 +8,6 @@ const ApiKey = import.meta.env.VITE_TMDB_API_KEY;
 const genres = JSON.parse(localStorage.getItem('genres'));
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [profileDir, setProfileDir] = useState(null);
     const [currentMovie, setCurrentMovie] = useState(null);
     const [search, setSearch] = React.useState("");
     const loginBaseUrl = "http://localhost:3000/Users";
@@ -74,12 +72,13 @@ function App() {
   return (
     <>
         <Routes>
-            <Route path="/" element={<HomePage genres={genres} search={search} setSearch={setSearch} setCurrentMovie={setCurrentMovie} profileDir={profileDir} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>}/>
-            <Route path="/login" element={<LoginPage setProfielDir={setProfileDir} setIsLoggedIn = {setIsLoggedIn}/>}/>
-            <Route path="/player" element={<MoviePlayer movie={currentMovie} profileDir={profileDir} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>}/>
+            <Route path="/" element={<HomePage genres={genres} search={search} setSearch={setSearch} setCurrentMovie={setCurrentMovie}/>}/>
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/player" element={<MoviePlayer movie={currentMovie}/>}/>
         </Routes>
     </>
   )
 }
 
 export default App
+

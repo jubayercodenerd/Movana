@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
-const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
+import {AuthContext} from "./contexts/AuthContext.jsx";
+
+const Navbar = () => {
     const [signInHovered, setSignInHovered] = useState(false);
     const [isMenuModalVisible, setIsMenuModalVisible] = useState(false);
     const [isVisible, setIsVisible] = React.useState(true);
     const navigate = useNavigate();
+    const {user,logOut} = React.useContext(AuthContext);
 
     useEffect(()=>{
         const handleScroll = () => {
@@ -22,11 +25,11 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
         <nav className={`fixed top-0 z-50 h-[60px] w-full px-6 flex items-center justify-end bg-gradient-to-b from-gray-950 to-transparent max-md:h-[50px] ${!isVisible ? 'hidden' : ''}`} >
             <img onClick={() => navigate('/')} className={"max-h-[80%] mr-auto my-[25px] cursor-pointer"} src="/project-images/MovanaLogo.png" alt="Movana logo"/>
             {
-                isLoggedIn ? (
+                user ? (
                     <div onClick={() => {
                         setIsMenuModalVisible(!isMenuModalVisible)
                     }} className="h-[70%] aspect-square rounded-full border-2 border-white overflow-hidden cursor-pointer">
-                        <img src={profileDir?profileDir:'/public/profile-pictures/default.jpg'} alt=""/>
+                        <img src={user?user.profilePicture:'/public/profile-pictures/default.jpg'} alt="profile"/>
                     </div>
                 ) : (
                     <Link to="/login">
@@ -48,7 +51,7 @@ const Navbar = ({setIsLoggedIn, isLoggedIn, profileDir}) => {
                     <div    onMouseOver={()=>setIsMenuModalVisible(true)} onMouseLeave={()=>setIsMenuModalVisible(false)}
                         className={"absolute top-[60px] w-[120px] flex flex-col items-center justify-center gap-[2px] bg-black rounded-xl overflow-hidden"}>
                         {
-                            !isLoggedIn ? <></>:<button onClick={ () => { setIsLoggedIn(false); localStorage.removeItem("user"); setIsMenuModalVisible(false)}} className={"h-[40px] w-full bg-gradient-to-r from-blue-950 to-purple-950 text-sm font-semibold text-gray-200 cursor-pointer"}>Log Out</button>
+                            !user ? <></>:<button onClick={ () => { logOut(); setIsMenuModalVisible(false)}} className={"h-[40px] w-full bg-gradient-to-r from-blue-950 to-purple-950 text-sm font-semibold text-gray-200 cursor-pointer"}>Log Out</button>
                         }
                     </div>
                 </>:<></>
