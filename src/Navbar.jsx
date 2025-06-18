@@ -23,7 +23,7 @@ const Navbar = () => {
 
     return (
         <nav className={`fixed top-0 z-50 h-[60px] w-full px-6 flex items-center justify-end bg-gradient-to-b from-gray-950 to-transparent max-md:h-[50px] ${!isVisible ? 'hidden' : ''}`} >
-            <img onClick={() => navigate('/')} className={"max-h-[80%] mr-auto my-[25px] cursor-pointer"} src="/project-images/MovanaLogo.png" alt="Movana logo"/>
+            <img onClick={() => navigate('/')} className={"max-h-[80%] mr-auto my-[25px] cursor-pointer max-md:max-h-[50%]"} src="/project-images/MovanaLogo.png" alt="Movana logo"/>
             {
                 user ? (
                     <div onClick={() => {

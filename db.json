@@ -85,6 +85,15 @@
       "email": "1@1",
       "password": "1234",
       "history": []
+    },
+    {
+      "id": "e27b",
+      "firstName": "1234",
+      "lastName": "1222",
+      "profilePicture": "/profile-pictures/default.jpg",
+      "email": "44@44",
+      "password": "1234",
+      "history": []
     }
   ]
 }
