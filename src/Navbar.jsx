@@ -51,7 +51,8 @@ const Navbar = () => {
                     <div    onMouseOver={()=>setIsMenuModalVisible(true)} onMouseLeave={()=>setIsMenuModalVisible(false)}
                         className={"absolute top-[60px] w-[120px] flex flex-col items-center justify-center gap-[2px] bg-black rounded-xl overflow-hidden"}>
                         {
-                            !user ? <></>:<button onClick={ () => { logOut(); setIsMenuModalVisible(false)}} className={"h-[40px] w-full bg-gradient-to-r from-blue-950 to-purple-950 text-sm font-semibold text-gray-200 cursor-pointer"}>Log Out</button>
+                            !user ? <></>:<button onClick={ () => { logOut(); setIsMenuModalVisible(false)}}
+                                                  className={"h-[40px] w-full bg-gradient-to-r from-blue-950 to-purple-950 text-sm font-semibold text-gray-200 cursor-pointer"}>Log Out</button>
                         }
                     </div>
                 </>:<></>

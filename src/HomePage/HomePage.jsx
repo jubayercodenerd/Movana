@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {useDebounce} from "react-use";
 import Navbar from "../Navbar.jsx";
 import MovieCard from "./MovieCard.jsx";
+import CardGrid from "./CardGrid.jsx";
 const baseUrl = 'https://api.themoviedb.org/3';
 const ApiKey = import.meta.env.VITE_TMDB_API_KEY;
 const options = {
@@ -198,7 +199,7 @@ const HomePage = ({setCurrentMovie, search, setSearch}) => {
                     </form>
                 </div>
             </div>
-            <section className={"z-20 flex justify-center max-md:justify-center items-center flex-wrap gap-[20px] max-md:gap-[10px] max-w-[1100px] my-[40px] max-md:my-[20px]"}>
+{/*            <section className={"z-20 flex justify-center max-md:justify-center items-center flex-wrap gap-[20px] max-md:gap-[10px] max-w-[1100px] my-[40px] max-md:my-[20px]"}>
                 {showMovies ? (
                     movies.map((movie) => {
                         let title = movie.title.length > 22 ? movie.title.slice(0,22) + "..." : movie.title;
@@ -224,7 +225,34 @@ const HomePage = ({setCurrentMovie, search, setSearch}) => {
                         </p>
                     </div>
                 )}
-            </section>
+            </section>*/}
+            <CardGrid>
+                {showMovies ? (
+                    movies.map((movie) => {
+                        let title = movie.title.length > 22 ? movie.title.slice(0,22) + "..." : movie.title;
+                        return (
+                            <MovieCard
+                                key={movie.id}
+                                movieId={movie.id}
+                                setCurrentMovie={setCurrentMovie}
+                                poster={movie.poster_path}
+                                rating={movie.vote_average?.toFixed(1) || "N/A"}
+                                title={title}
+                                date={movie.release_date?.slice(0,4) || "N/A"}
+                                lang={movie.original_language}
+                                genreIds={movie.genre_ids}
+                                genres={genres}
+                            />
+                        );
+                    })
+                ) : (
+                    <div className="w-full text-center">
+                        <p className="text-white text-4xl">
+                            {loading ? "Loading" : errorMessage || "No Movies found"}
+                        </p>
+                    </div>
+                )}
+            </CardGrid>
             <div className={"h-[35px] flex justify-center items-center flex-wrap mb-[30px] gap-[10px]"}>
                 {
                     page > 1? <>
